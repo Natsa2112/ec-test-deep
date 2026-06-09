@@ -1010,7 +1010,7 @@ Las flechas indican dependencias fuertes. Tareas sin dependencias entre sí pued
 - [ ] F-51: AnnouncementBar (barra promocional superior)
 - [ ] F-52: ProductCarousel island (carrusel destacados)
 - [ ] F-53: ContactForm (formulario de contacto)
-- [ ] F-54: SocialLoginButtons (login con redes sociales)
+- [x] F-54: SocialLoginButtons (login con redes sociales)
 - [ ] F-55: CountdownBanner (banner contador ofertas)
 - [ ] F-56: OrderTimeline (timeline estados pedido)
 

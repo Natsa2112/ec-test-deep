@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useStore } from "@nanostores/react";
 import { $auth, login } from "../stores/auth";
 import { api } from "../lib/api";
+import SocialLoginButtons from "./SocialLoginButtons";
 
 export default function RegisterForm() {
   const [form, setForm] = useState({ email: "", password: "", nombre: "", apellido: "" });
@@ -69,6 +70,7 @@ export default function RegisterForm() {
       >
         {loading ? "Creando cuenta..." : "Crear cuenta"}
       </button>
+      <SocialLoginButtons label="O registrate con" />
     </form>
   );
 }

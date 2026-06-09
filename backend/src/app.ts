@@ -1,7 +1,9 @@
 import express from "express";
 import cors from "cors";
+import passport from "passport";
 import { PrismaClient } from "@prisma/client";
 import authRoutes from "./routes/auth.js";
+import authSocialRoutes from "./routes/auth-social.js";
 import categoriaRoutes from "./routes/categorias.js";
 import productRoutes from "./routes/productos.js";
 import adminRoutes from "./routes/admin.js";
@@ -16,6 +18,7 @@ export const app = express();
 
 app.use(cors({ origin: process.env.CORS_ORIGIN ?? "http://localhost:4321" }));
 app.use(express.json());
+app.use(passport.initialize());
 
 app.get("/api/health", async (_req, res) => {
   try {
@@ -27,6 +30,7 @@ app.get("/api/health", async (_req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/auth", authSocialRoutes);
 app.use("/api/categorias", categoriaRoutes);
 app.use("/api/productos", productRoutes);
 app.use("/api/admin", adminRoutes);

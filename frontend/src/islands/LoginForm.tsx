@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useStore } from "@nanostores/react";
 import { $auth, login } from "../stores/auth";
 import { api } from "../lib/api";
 import { loadCart } from "../stores/cart";
+import SocialLoginButtons from "./SocialLoginButtons";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -10,6 +11,13 @@ export default function LoginForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const auth = useStore($auth);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const err = params.get("error");
+    if (err === "social") setError("No se pudo autenticar con el proveedor seleccionado");
+    else if (err === "token") setError("Error al procesar la autenticación");
+  }, []);
 
   if (auth.token) {
     return (
@@ -75,6 +83,7 @@ export default function LoginForm() {
       >
         {loading ? "Ingresando..." : "Ingresar"}
       </button>
+      <SocialLoginButtons />
       <p class="text-xs text-text-muted text-center">
         Demo: admin@techstore.com / cliente@test.com — password: password123
       </p>

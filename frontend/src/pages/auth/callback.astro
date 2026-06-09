@@ -1,0 +1,10 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import AuthCallback from "../../islands/AuthCallback.tsx";
+import AuthInit from "../../islands/AuthInit.tsx";
+---
+
+<MainLayout title="Autenticando... — TechStore">
+  <AuthInit client:only="react" />
+  <AuthCallback client:only="react" />
+</MainLayout>
