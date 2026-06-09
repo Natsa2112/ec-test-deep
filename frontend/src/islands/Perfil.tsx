@@ -43,7 +43,7 @@ export default function Perfil() {
       });
       if (!res.ok) throw new Error("Error al guardar");
       const data = await res.json();
-      login(auth.token!, { id: data.id, email: data.email, nombre: data.nombre, apellido: data.apellido, rol: data.rol });
+      login(auth.token!, { id: data.id, email: data.email, nombre: data.nombre, apellido: data.apellido, avatarUrl: data.avatarUrl ?? null, rol: data.rol });
       setEditing(false);
       setSuccess("Perfil actualizado correctamente");
     } catch {
@@ -70,9 +70,13 @@ export default function Perfil() {
 
       {/* Avatar & Email */}
       <div class="flex items-center gap-6 rounded-xl border border-border bg-bg-secondary p-6">
-        <div class="flex h-16 w-16 items-center justify-center rounded-full bg-violet-600/20 text-xl font-bold text-violet-400">
-          {initials}
-        </div>
+        {auth.user?.avatarUrl ? (
+          <img src={auth.user.avatarUrl} alt="" class="h-16 w-16 rounded-full" />
+        ) : (
+          <div class="flex h-16 w-16 items-center justify-center rounded-full bg-violet-600/20 text-xl font-bold text-violet-400">
+            {initials}
+          </div>
+        )}
         <div>
           <p class="text-lg font-semibold text-text-primary">{nombre} {apellido}</p>
           <p class="text-sm text-text-muted">{auth.user?.email}</p>
