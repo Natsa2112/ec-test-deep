@@ -1,0 +1,39 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Breadcrumb from "../components/molecules/Breadcrumb.astro";
+import ContactForm from "../islands/ContactForm.tsx";
+---
+
+<MainLayout title="Contacto — TechStore">
+  <div class="mx-auto max-w-6xl px-4 py-16">
+    <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Contacto" }]} class="mb-6" />
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
+      <div>
+        <h1 class="mb-6 text-3xl font-bold text-text-primary">Contactanos</h1>
+        <p class="mb-8 text-text-secondary">Estamos para ayudarte. Completá el formulario y te respondemos a la brevedad.</p>
+        <ContactForm client:load />
+      </div>
+      <div class="rounded-xl border border-border bg-bg-tertiary p-8">
+        <h2 class="mb-6 text-xl font-bold text-text-primary">Información de contacto</h2>
+        <div class="flex flex-col gap-6">
+          <div>
+            <h3 class="mb-1 text-sm font-semibold text-text-primary">Email</h3>
+            <p class="text-sm text-text-secondary">hola@techstore.com</p>
+          </div>
+          <div>
+            <h3 class="mb-1 text-sm font-semibold text-text-primary">Teléfono</h3>
+            <p class="text-sm text-text-secondary">11-5555-0200</p>
+          </div>
+          <div>
+            <h3 class="mb-1 text-sm font-semibold text-text-primary">Dirección</h3>
+            <p class="text-sm text-text-secondary">Av. Corrientes 1234, CABA, Argentina</p>
+          </div>
+          <div>
+            <h3 class="mb-1 text-sm font-semibold text-text-primary">Horarios</h3>
+            <p class="text-sm text-text-secondary">Lun a Vie: 9:00 - 18:00<br />Sáb: 10:00 - 14:00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>

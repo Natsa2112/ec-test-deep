@@ -1,0 +1,24 @@
+---
+import ProductCard from "../atoms/ProductCard.astro";
+import type { Props as ProductCardProps } from "../atoms/ProductCard.astro";
+
+export interface Props {
+  products: ProductCardProps[];
+  columns?: 2 | 3 | 4;
+  class?: string;
+}
+
+const { products, columns = 3, class: className = "" } = Astro.props;
+
+const gridCols = {
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-2 lg:grid-cols-3",
+  4: "sm:grid-cols-2 lg:grid-cols-4",
+};
+---
+
+<div class={`grid grid-cols-1 gap-4 ${gridCols[columns]} ${className}`}>
+  {products.map((product) => (
+    <ProductCard key={product.slug} {...product} />
+  ))}
+</div>

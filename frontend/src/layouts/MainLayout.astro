@@ -1,0 +1,47 @@
+---
+import Header from "../components/organisms/Header.astro";
+import Footer from "../components/organisms/Footer.astro";
+import "../styles/global.css";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { title = "TechStore — Tienda de Electrónica", description = "La mejor tienda de electrónica online", image } = Astro.props;
+const canonical = Astro.url.pathname;
+const siteName = "TechStore";
+const ogImage = image ?? "/favicon.svg";
+---
+
+<!DOCTYPE html>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0a0a10" />
+    <meta name="robots" content="index, follow" />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={`https://techstore.com${canonical}`} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`https://techstore.com${ogImage}`} />
+    <meta property="og:url" content={`https://techstore.com${canonical}`} />
+    <meta property="og:site_name" content={siteName} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`https://techstore.com${ogImage}`} />
+  </head>
+  <body class="bg-bg-primary text-text-primary antialiased">
+    <Header />
+    <slot />
+    <Footer />
+  </body>
+</html>

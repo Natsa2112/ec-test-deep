@@ -1,0 +1,31 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Breadcrumb from "../components/molecules/Breadcrumb.astro";
+import AccordionItem from "../components/molecules/AccordionItem.astro";
+
+const faqItems = [
+  { pregunta: "¿Cuánto tarda el envío?", respuesta: "El envío a CABA y GBA tarda entre 24 y 48 horas hábiles. Al interior del país, entre 3 y 7 días hábiles dependiendo de la ubicación." },
+  { pregunta: "¿Cómo puedo pagar?", respuesta: "Aceptamos tarjetas de crédito/débito (Visa, Mastercard, Amex), MercadoPago, transferencia bancaria y efectivo por Rapipago/Pago Fácil." },
+  { pregunta: "¿Tienen garantía?", respuesta: "Todos nuestros productos tienen 1 año de garantía oficial. Además, ofrecemos 30 días de garantía de devolución sin costo." },
+  { pregunta: "¿Puedo cancelar mi pedido?", respuesta: "Sí, podés cancelar tu pedido dentro de las primeras 24 horas sin costo adicional. Si ya fue despachado, podés rechazar el envío." },
+  { pregunta: "¿Cómo hago un cambio o devolución?", respuesta: "Podés solicitar un cambio o devolución dentro de los 30 días posteriores a la recepción. El producto debe estar en su estado original con el embalaje completo." },
+  { pregunta: "¿Hacen factura A?", respuesta: "Sí, emitimos factura A, B y C. Solo necesitás ingresar tus datos fiscales durante el checkout." },
+  { pregunta: "¿Cómo sé si un producto tiene stock?", respuesta: "El stock se actualiza en tiempo real. Si ves el producto disponible, podés comprarlo con total seguridad." },
+  { pregunta: "¿Puedo comprar sin registrarme?", respuesta: "Sí, ofrecemos compra como invitado. Igual te recomendamos registrarte para tener acceso a tu historial y seguimiento." },
+];
+---
+
+<MainLayout title="FAQ — TechStore">
+  <div class="mx-auto max-w-3xl px-4 py-16">
+    <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "FAQ" }]} class="mb-6" />
+    <h1 class="mb-8 text-3xl font-bold text-text-primary">Preguntas frecuentes</h1>
+    <div class="divide-y divide-border rounded-xl border border-border bg-bg-tertiary">
+      {faqItems.map((item) => (
+        <AccordionItem>
+          <Fragment slot="title">{item.pregunta}</Fragment>
+          <Fragment slot="content">{item.respuesta}</Fragment>
+        </AccordionItem>
+      ))}
+    </div>
+  </div>
+</MainLayout>

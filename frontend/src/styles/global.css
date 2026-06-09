@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-violet-50: oklch(0.97 0.02 290);
+  --color-violet-100: oklch(0.94 0.04 290);
+  --color-violet-200: oklch(0.88 0.08 290);
+  --color-violet-300: oklch(0.80 0.13 290);
+  --color-violet-400: oklch(0.70 0.18 290);
+  --color-violet-500: oklch(0.60 0.22 290);
+  --color-violet-600: oklch(0.50 0.22 290);
+  --color-violet-700: oklch(0.40 0.18 290);
+  --color-violet-800: oklch(0.30 0.14 290);
+  --color-violet-900: oklch(0.20 0.10 290);
+  --color-violet-950: oklch(0.12 0.05 290);
+
+  --color-amber-50: oklch(0.97 0.05 85);
+  --color-amber-100: oklch(0.94 0.09 85);
+  --color-amber-200: oklch(0.88 0.13 85);
+  --color-amber-300: oklch(0.80 0.16 85);
+  --color-amber-400: oklch(0.72 0.18 85);
+  --color-amber-500: oklch(0.64 0.19 85);
+  --color-amber-600: oklch(0.55 0.18 85);
+  --color-amber-700: oklch(0.46 0.15 85);
+  --color-amber-800: oklch(0.36 0.11 85);
+  --color-amber-900: oklch(0.26 0.07 85);
+  --color-amber-950: oklch(0.16 0.04 85);
+
+  --color-bg-primary: #0a0a10;
+  --color-bg-secondary: #12121a;
+  --color-bg-tertiary: #1a1a26;
+  --color-bg-elevated: #222236;
+
+  --color-text-primary: #e8e8f0;
+  --color-text-secondary: #9898a8;
+  --color-text-muted: #6a6a7a;
+
+  --color-border: #2a2a3e;
+  --color-border-light: #3a3a50;
+
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --color-warning: var(--color-amber-400);
+  --color-info: #60a5fa;
+}
+
+* {
+  scrollbar-color: var(--color-bg-elevated) var(--color-bg-secondary);
+}
+
+::selection {
+  background: var(--color-violet-600);
+  color: white;
+}

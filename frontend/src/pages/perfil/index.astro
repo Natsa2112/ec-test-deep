@@ -1,0 +1,13 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import AuthInit from "../../islands/AuthInit.tsx";
+import Perfil from "../../islands/Perfil.tsx";
+---
+
+<MainLayout title="Mi perfil — TechStore">
+  <AuthInit client:only="react" />
+  <div class="mx-auto max-w-2xl px-4 py-8">
+    <h1 class="mb-8 text-3xl font-bold text-text-primary">Mi perfil</h1>
+    <Perfil client:load />
+  </div>
+</MainLayout>

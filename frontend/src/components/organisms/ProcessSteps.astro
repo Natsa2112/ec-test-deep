@@ -1,0 +1,25 @@
+---
+export interface Props {
+  steps: { number: string; title: string; description: string }[];
+  class?: string;
+}
+
+const { steps, class: className = "" } = Astro.props;
+---
+
+<section class={`py-16 bg-bg-secondary ${className}`}>
+  <div class="mx-auto max-w-6xl px-4">
+    <h2 class="mb-10 text-center text-2xl font-bold text-text-primary">Cómo comprar</h2>
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-4">
+      {steps.map((step) => (
+        <div class="relative text-center">
+          <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-violet-600 text-lg font-bold text-white">
+            {step.number}
+          </div>
+          <h3 class="mb-2 font-semibold text-text-primary">{step.title}</h3>
+          <p class="text-sm text-text-secondary">{step.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

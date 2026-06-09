@@ -1,0 +1,10 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import AuthInit from "../../islands/AuthInit.tsx";
+import PedidoDetalle from "../../islands/PedidoDetalle.tsx";
+---
+
+<MainLayout title="Pedido — TechStore">
+  <AuthInit client:only="react" />
+  <PedidoDetalle client:load />
+</MainLayout>

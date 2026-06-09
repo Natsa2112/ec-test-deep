@@ -1,0 +1,42 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Breadcrumb from "../components/molecules/Breadcrumb.astro";
+import CTASection from "../components/organisms/CTASection.astro";
+---
+
+<MainLayout title="Nosotros — TechStore">
+  <div class="mx-auto max-w-6xl px-4 py-16">
+    <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Nosotros" }]} class="mb-6" />
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
+      <div>
+        <h1 class="mb-6 text-4xl font-bold text-text-primary">Sobre TechStore</h1>
+        <p class="mb-4 text-lg text-text-secondary">
+          Somos una tienda de electrónica comprometida con ofrecer los mejores productos del mercado
+          a precios competitivos. Trabajamos con las marcas más reconocidas del mundo.
+        </p>
+        <p class="text-text-secondary">
+          Nuestro equipo está formado por apasionados de la tecnología que entienden tus necesidades
+          y te asesoran para encontrar el producto perfecto.
+        </p>
+      </div>
+      <div class="rounded-xl border border-border bg-bg-tertiary p-8">
+        <h2 class="mb-6 text-2xl font-bold text-text-primary">Nuestros valores</h2>
+        <ul class="flex flex-col gap-4">
+          <li class="rounded-lg border border-border bg-bg-secondary p-4">
+            <strong class="text-violet-400">Calidad</strong>
+            <p class="mt-1 text-sm text-text-secondary">Seleccionamos cada producto con los más altos estándares.</p>
+          </li>
+          <li class="rounded-lg border border-border bg-bg-secondary p-4">
+            <strong class="text-violet-400">Confianza</strong>
+            <p class="mt-1 text-sm text-text-secondary">Más de 10.000 clientes satisfechos nos avalan.</p>
+          </li>
+          <li class="rounded-lg border border-border bg-bg-secondary p-4">
+            <strong class="text-violet-400">Innovación</strong>
+            <p class="mt-1 text-sm text-text-secondary">Siempre a la vanguardia con los últimos lanzamientos.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <CTASection />
+</MainLayout>

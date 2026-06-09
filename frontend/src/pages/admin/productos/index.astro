@@ -1,0 +1,11 @@
+---
+import AdminLayout from "../../../layouts/AdminLayout.astro";
+import AdminProductos from "../../../islands/admin/AdminProductos.tsx";
+---
+
+<AdminLayout title="Productos — TechStore Admin">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-bold text-text-primary">Productos</h1>
+  </div>
+  <AdminProductos client:load />
+</AdminLayout>

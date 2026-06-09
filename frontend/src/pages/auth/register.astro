@@ -1,0 +1,19 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import AuthInit from "../../islands/AuthInit.tsx";
+import RegisterForm from "../../islands/RegisterForm.tsx";
+---
+
+<MainLayout title="Crear cuenta — TechStore">
+  <AuthInit client:only="react" />
+  <div class="mx-auto flex min-h-[70vh] max-w-md items-center justify-center px-4 py-16">
+    <div class="w-full">
+      <h1 class="mb-2 text-center text-2xl font-bold text-text-primary">Crear cuenta</h1>
+      <p class="mb-8 text-center text-sm text-text-muted">
+        Ya tenés cuenta?{" "}
+        <a href="/auth/login" class="text-violet-400 hover:text-violet-300">Iniciar sesión</a>
+      </p>
+      <RegisterForm client:only="react" />
+    </div>
+  </div>
+</MainLayout>

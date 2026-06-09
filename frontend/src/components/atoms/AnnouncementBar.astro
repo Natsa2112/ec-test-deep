@@ -1,0 +1,12 @@
+---
+export interface Props {
+  text?: string;
+  class?: string;
+}
+
+const { text = "🚚 Envío gratis en compras mayores a $50.000 | 12 cuotas sin interés", class: className = "" } = Astro.props;
+---
+
+<div class={`bg-violet-950 py-2 text-center text-xs text-violet-200 ${className}`}>
+  <p class="px-4">{text}</p>
+</div>

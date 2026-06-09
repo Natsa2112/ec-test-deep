@@ -1,0 +1,61 @@
+---
+export interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+
+const footerLinks = {
+  productos: ["Celulares", "Computación", "Audio", "TV y Video", "Gaming"],
+  soporte: ["FAQ", "Envíos", "Cambios y Devoluciones", "Garantía", "Contacto"],
+  empresa: ["Nosotros", "Trabajá con nosotros", "Términos y condiciones", "Privacidad"],
+};
+---
+
+<footer class={`border-t border-border bg-bg-secondary ${className}`}>
+  <div class="mx-auto max-w-6xl px-4 py-12">
+    <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
+      <div>
+        <h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-text-primary">Productos</h3>
+        <ul class="flex flex-col gap-2">
+          {footerLinks.productos.map((link) => (
+            <li><a href="/productos" class="text-sm text-text-secondary hover:text-violet-400 transition-colors">{link}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-text-primary">Soporte</h3>
+        <ul class="flex flex-col gap-2">
+          {footerLinks.soporte.map((link) => (
+            <li><a href="/faq" class="text-sm text-text-secondary hover:text-violet-400 transition-colors">{link}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-text-primary">Empresa</h3>
+        <ul class="flex flex-col gap-2">
+          {footerLinks.empresa.map((link) => (
+            <li><a href="/nosotros" class="text-sm text-text-secondary hover:text-violet-400 transition-colors">{link}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-text-primary">Newsletter</h3>
+        <p class="mb-3 text-sm text-text-secondary">Recibí las mejores ofertas en tu email.</p>
+        <form class="flex gap-2">
+          <input type="email" placeholder="tu@email.com" class="min-w-0 flex-1 rounded-lg border border-border bg-bg-tertiary px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/20" />
+          <button type="submit" class="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-500 transition-colors">Suscribir</button>
+        </form>
+        <div class="mt-6">
+          <h4 class="mb-2 text-xs font-semibold uppercase tracking-wider text-text-muted">Medios de pago</h4>
+          <div class="flex flex-wrap gap-2 text-xs text-text-muted">
+            Visa | Mastercard | Amex | MercadoPago | Transferencia
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 border-t border-border pt-6 text-center text-xs text-text-muted">
+      &copy; {new Date().getFullYear()} TechStore. Todos los derechos reservados.
+    </div>
+  </div>
+</footer>

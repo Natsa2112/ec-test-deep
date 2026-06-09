@@ -1,0 +1,40 @@
+---
+import AnnouncementBar from "../atoms/AnnouncementBar.astro";
+import SearchBar from "../../islands/SearchBar.tsx";
+import AuthInit from "../../islands/AuthInit.tsx";
+import AuthButtons from "../../islands/AuthButtons.tsx";
+import CartBadge from "../../islands/CartBadge.tsx";
+import MobileMenu from "../../islands/MobileMenu.tsx";
+
+export interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+
+<AuthInit client:only="react" />
+<AnnouncementBar />
+<header class={`sticky top-0 z-50 border-b border-border bg-bg-secondary/95 backdrop-blur ${className}`}>
+  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
+    <div class="flex items-center gap-3">
+      <MobileMenu client:visible />
+      <a href="/" class="flex shrink-0 items-center gap-2 text-xl font-bold text-violet-400">
+        TechStore
+      </a>
+    </div>
+
+    <nav class="hidden items-center gap-6 md:flex">
+      <a href="/productos" class="text-sm font-medium text-text-secondary hover:text-violet-400 transition-colors">Productos</a>
+      <a href="/ofertas" class="text-sm font-medium text-text-secondary hover:text-violet-400 transition-colors">Ofertas</a>
+      <a href="/nosotros" class="text-sm font-medium text-text-secondary hover:text-violet-400 transition-colors">Nosotros</a>
+      <a href="/contacto" class="text-sm font-medium text-text-secondary hover:text-violet-400 transition-colors">Contacto</a>
+    </nav>
+
+    <SearchBar client:visible />
+
+    <div class="flex shrink-0 items-center gap-3">
+      <CartBadge client:visible />
+      <AuthButtons client:visible />
+    </div>
+  </div>
+</header>

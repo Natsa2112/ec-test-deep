@@ -1,0 +1,95 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import Breadcrumb from "../../components/molecules/Breadcrumb.astro";
+import ProductCard from "../../components/atoms/ProductCard.astro";
+import FilterSidebar from "../../islands/FilterSidebar.tsx";
+
+const API = import.meta.env.PUBLIC_API_URL;
+const params = Astro.url.searchParams;
+const categoria = params.get("categoria") ?? "";
+const search = params.get("search") ?? "";
+const page = params.get("page") ?? "1";
+
+const qs = new URLSearchParams({ page, limit: "12" });
+if (categoria) qs.set("categoria", categoria);
+if (search) qs.set("search", search);
+
+let productos: any[] = [];
+let pagination = { page: 1, limit: 12, total: 0, totalPages: 0 };
+
+try {
+  const res = await fetch(`${API}/productos?${qs}`);
+  const data = await res.json();
+  productos = data.productos;
+  pagination = data.pagination;
+} catch (e) {
+  console.error("Error fetching products:", e);
+}
+---
+
+<MainLayout title={`${categoria ? `${categoria} — ` : ""}Productos — TechStore`}>
+  <div class="mx-auto max-w-6xl px-4 py-8">
+    <Breadcrumb items={[
+      { label: "Inicio", href: "/" },
+      { label: "Productos", href: "/productos" },
+      ...(categoria ? [{ label: categoria }] : []),
+    ]} class="mb-6" />
+
+    <h1 class="mb-8 text-3xl font-bold text-text-primary">
+      {search ? `Resultados para "${search}"` : categoria ? `${categoria}` : "Todos los productos"}
+      <span class="ml-2 text-lg font-normal text-text-muted">({pagination.total} productos)</span>
+    </h1>
+
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-4">
+      <div class="lg:col-span-1">
+        <FilterSidebar client:visible />
+      </div>
+      <div class="lg:col-span-3">
+        {productos.length > 0 ? (
+          <>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {productos.map((p: any) => (
+                <ProductCard
+                  key={p.slug}
+                  id={p.id}
+                  nombre={p.nombre}
+                  slug={p.slug}
+                  precio={Number(p.precio)}
+                  precioAnterior={p.precioAnterior ? Number(p.precioAnterior) : undefined}
+                  descuento={p.descuento}
+                  rating={Number(p.rating)}
+                  imagen={p.imagenes?.[0]}
+                />
+              ))}
+            </div>
+            {pagination.totalPages > 1 && (
+              <div class="mt-8 flex items-center justify-center gap-2">
+                {Array.from({ length: pagination.totalPages }, (_, i) => (
+                  <a
+                    key={i + 1}
+                    href={`/productos?page=${i + 1}${categoria ? `&categoria=${categoria}` : ""}${search ? `&search=${search}` : ""}`}
+                    class={`flex h-9 w-9 items-center justify-center rounded-lg text-sm font-medium transition-colors ${
+                      pagination.page === i + 1
+                        ? "bg-violet-600 text-white"
+                        : "bg-bg-elevated text-text-secondary hover:bg-bg-tertiary"
+                    }`}
+                  >
+                    {i + 1}
+                  </a>
+                ))}
+              </div>
+            )}
+          </>
+        ) : (
+          <div class="flex flex-col items-center justify-center py-20 text-center">
+            <svg class="mb-4 h-16 w-16 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+            </svg>
+            <h3 class="text-lg font-semibold text-text-primary">No encontramos productos</h3>
+            <p class="mt-1 text-sm text-text-muted">Intentá con otros filtros o términos de búsqueda</p>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</MainLayout>

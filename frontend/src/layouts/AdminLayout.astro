@@ -1,0 +1,25 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import AuthInit from "../islands/AuthInit.tsx";
+import AdminGuard from "../islands/admin/AdminGuard.tsx";
+import AdminSidebar from "../islands/admin/AdminSidebar.tsx";
+
+export interface Props {
+  title?: string;
+}
+
+const { title = "Admin — TechStore" } = Astro.props;
+---
+
+<MainLayout title={title}>
+  <AuthInit client:only="react" />
+  <div class="mx-auto flex max-w-6xl gap-6 px-4 py-8">
+    <aside class="hidden w-56 shrink-0 lg:block">
+      <AdminSidebar client:load />
+    </aside>
+    <main class="flex-1 min-w-0">
+      <AdminGuard client:load />
+      <slot />
+    </main>
+  </div>
+</MainLayout>

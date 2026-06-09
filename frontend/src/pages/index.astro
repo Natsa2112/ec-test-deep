@@ -1,0 +1,133 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import HeroSection from "../components/organisms/HeroSection.astro";
+import FeatureGrid from "../components/organisms/FeatureGrid.astro";
+import ProcessSteps from "../components/organisms/ProcessSteps.astro";
+import CTASection from "../components/organisms/CTASection.astro";
+import CategoryCard from "../components/atoms/CategoryCard.astro";
+import ProductCard from "../components/atoms/ProductCard.astro";
+import AccordionItem from "../components/molecules/AccordionItem.astro";
+
+const API = import.meta.env.PUBLIC_API_URL;
+
+let categories: { nombre: string; slug: string; imagenUrl?: string; descripcion?: string }[] = [];
+let featuredProducts: any[] = [];
+
+try {
+  const [catRes, prodRes] = await Promise.all([
+    fetch(`${API}/categorias`),
+    fetch(`${API}/productos?destacado=true&limit=6`),
+  ]);
+  const cats = await catRes.json();
+  categories = cats.filter((c: any) => !c.padreId).slice(0, 5).map((c: any) => ({
+    nombre: c.nombre, slug: c.slug, imagenUrl: c.imagenUrl, descripcion: c.descripcion,
+  }));
+  const prodData = await prodRes.json();
+  featuredProducts = prodData.productos.slice(0, 6).map((p: any) => ({
+    id: p.id, nombre: p.nombre, slug: p.slug,
+    precio: Number(p.precio),
+    precioAnterior: p.precioAnterior ? Number(p.precioAnterior) : undefined,
+    descuento: p.descuento, rating: Number(p.rating), imagen: p.imagenes?.[0],
+  }));
+} catch (e) {
+  console.error("Error fetching homepage data:", e);
+  categories = [
+    { nombre: "Celulares", slug: "celulares" },
+    { nombre: "Computación", slug: "computacion" },
+    { nombre: "Audio", slug: "audio" },
+    { nombre: "TV y Video", slug: "tv-y-video" },
+    { nombre: "Gaming", slug: "gaming" },
+  ];
+  featuredProducts = [
+    { id: "1", nombre: "iPhone 15 Pro Max 256GB", slug: "iphone-15-pro-max-256gb", precio: 1599999, precioAnterior: 1799999, descuento: 11, rating: 5 },
+    { id: "2", nombre: "Samsung Galaxy S24 Ultra", slug: "samsung-galaxy-s24-ultra", precio: 1449999, precioAnterior: 1649999, descuento: 12, rating: 5 },
+  ];
+}
+
+const steps = [
+  { number: "1", title: "Elegí", description: "Navegá por nuestras categorías y encontrá el producto ideal" },
+  { number: "2", title: "Agregá al carrito", description: "Seleccioná cantidad y agregá los productos que quieras" },
+  { number: "3", title: "Pagá", description: "Elegí tu método de pago favorito y completá la compra" },
+  { number: "4", title: "Recibí", description: "Coordinamos el envío y recibís tu pedido en la puerta de tu casa" },
+];
+
+const benefits = [
+  { icon: "🚚", text: "Envío gratis a todo el país en compras mayores a $50.000" },
+  { icon: "🔒", text: "Pago seguro con MercadoPago, tarjeta o transferencia" },
+  { icon: "🔄", text: "30 días de garantía de devolución sin preguntas" },
+  { icon: "💬", text: "Soporte técnico 24/7 por chat, email y teléfono" },
+];
+
+const brands = ["Samsung", "Sony", "LG", "Apple", "Microsoft", "Motorola", "Xiaomi", "Logitech"];
+---
+
+<MainLayout>
+  <HeroSection
+    title="TechStore — líder en electrónica"
+    subtitle="Encontrá los mejores productos en celulares, computación, audio, TV y gaming. Precios imbatibles con cuotas sin interés."
+    ctaText="Comprar ahora"
+    ctaHref="/productos"
+  />
+
+  <section class="py-16">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="mb-8 text-center text-2xl font-bold text-text-primary">Categorías destacadas</h2>
+      <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+        {categories.map((cat) => (
+          <CategoryCard key={cat.slug} nombre={cat.nombre} slug={cat.slug} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FeatureGrid title="¿Por qué comprar en TechStore?" items={benefits} />
+  <ProcessSteps steps={steps} />
+
+  <section class="py-16">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="mb-8 text-center text-2xl font-bold text-text-primary">Productos destacados</h2>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {featuredProducts.map((p) => (
+          <ProductCard key={p.slug} {...p} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-bg-secondary py-16">
+    <div class="mx-auto max-w-6xl px-4 text-center">
+      <h2 class="mb-8 text-2xl font-bold text-text-primary">Marcas que trabajamos</h2>
+      <div class="flex flex-wrap justify-center gap-8 text-sm font-semibold uppercase tracking-wider text-text-muted">
+        {brands.map((brand) => (
+          <span key={brand}>{brand}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="mx-auto max-w-3xl px-4">
+      <h2 class="mb-8 text-center text-2xl font-bold text-text-primary">Preguntas frecuentes</h2>
+      <div class="divide-y divide-border rounded-xl border border-border bg-bg-tertiary">
+        <AccordionItem>
+          <Fragment slot="title">¿Cuánto tarda el envío?</Fragment>
+          <Fragment slot="content">El envío a CABA y GBA tarda entre 24 y 48 horas hábiles. Al interior del país, entre 3 y 7 días hábiles dependiendo de la ubicación.</Fragment>
+        </AccordionItem>
+        <AccordionItem>
+          <Fragment slot="title">¿Cómo puedo pagar?</Fragment>
+          <Fragment slot="content">Aceptamos tarjetas de crédito/débito (Visa, Mastercard, Amex), MercadoPago, transferencia bancaria y efectivo por Rapipago/Pago Fácil.</Fragment>
+        </AccordionItem>
+        <AccordionItem>
+          <Fragment slot="title">¿Tienen garantía?</Fragment>
+          <Fragment slot="content">Todos nuestros productos tienen 1 año de garantía oficial. Además, ofrecemos 30 días de garantía de devolución sin costo.</Fragment>
+        </AccordionItem>
+        <AccordionItem>
+          <Fragment slot="title">¿Puedo cancelar mi pedido?</Fragment>
+          <Fragment slot="content">Sí, podés cancelar tu pedido dentro de las primeras 24 horas sin costo adicional. Si ya fue despachado, podés rechazar el envío.</Fragment>
+        </AccordionItem>
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</MainLayout>

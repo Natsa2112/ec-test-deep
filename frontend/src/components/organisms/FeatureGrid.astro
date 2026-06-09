@@ -1,0 +1,23 @@
+---
+export interface Props {
+  title: string;
+  items: { icon?: string; text: string }[];
+  class?: string;
+}
+
+const { title, items, class: className = "" } = Astro.props;
+---
+
+<section class={`py-16 ${className}`}>
+  <div class="mx-auto max-w-6xl px-4">
+    <h2 class="mb-10 text-center text-2xl font-bold text-text-primary">{title}</h2>
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {items.map((item) => (
+        <div class="rounded-xl border border-border bg-bg-tertiary p-6 text-center shadow-sm transition-shadow hover:shadow-md hover:border-violet-800/50">
+          {item.icon && <div class="mb-3 text-3xl">{item.icon}</div>}
+          <p class="text-sm text-text-secondary">{item.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

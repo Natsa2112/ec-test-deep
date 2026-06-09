@@ -1,0 +1,9 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import AdminDashboard from "../../islands/admin/AdminDashboard.tsx";
+---
+
+<AdminLayout title="Dashboard — TechStore Admin">
+  <h1 class="mb-6 text-2xl font-bold text-text-primary">Dashboard</h1>
+  <AdminDashboard client:load />
+</AdminLayout>

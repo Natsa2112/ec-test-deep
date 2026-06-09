@@ -1,0 +1,13 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import AuthInit from "../islands/AuthInit.tsx";
+import CheckoutForm from "../islands/CheckoutForm.tsx";
+---
+
+<MainLayout title="Checkout — TechStore">
+  <AuthInit client:only="react" />
+  <div class="mx-auto max-w-4xl px-4 py-8">
+    <h1 class="mb-8 text-3xl font-bold text-text-primary">Checkout</h1>
+    <CheckoutForm client:load />
+  </div>
+</MainLayout>

@@ -1,0 +1,33 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Breadcrumb from "../components/molecules/Breadcrumb.astro";
+import ProductCard from "../components/atoms/ProductCard.astro";
+
+const offerProducts = [
+  { id: "p001", nombre: "iPhone 15 Pro Max 256GB", slug: "iphone-15-pro-max-256gb", precio: 1599999, precioAnterior: 1799999, descuento: 11, rating: 5 },
+  { id: "p002", nombre: "Samsung Galaxy S24 Ultra", slug: "samsung-galaxy-s24-ultra", precio: 1449999, precioAnterior: 1649999, descuento: 12, rating: 5 },
+  { id: "p003", nombre: "Motorola Edge 50 Pro", slug: "motorola-edge-50-pro", precio: 699999, precioAnterior: 849999, descuento: 18, rating: 4 },
+  { id: "p004", nombre: "Xiaomi 14 Pro", slug: "xiaomi-14-pro", precio: 799999, precioAnterior: 949999, descuento: 16, rating: 4 },
+  { id: "p005", nombre: "Funda Silicona iPhone 15 Pro Max", slug: "funda-silicona-iphone-15-pro-max", precio: 24999, precioAnterior: 34999, descuento: 29, rating: 3 },
+  { id: "p006", nombre: "Cargador USB-C 65W GaN", slug: "cargador-usb-c-65w-gan", precio: 34999, precioAnterior: 44999, descuento: 22, rating: 4 },
+  { id: "p007", nombre: "MacBook Pro 14\" M3 Pro", slug: "macbook-pro-14-m3-pro", precio: 2499999, precioAnterior: 2799999, descuento: 11, rating: 4 },
+  { id: "p013", nombre: "Sony WH-1000XM5", slug: "sony-wh-1000xm5", precio: 329999, precioAnterior: 399999, descuento: 18, rating: 5 },
+  { id: "p016", nombre: "Samsung QLED 65\" Q80C", slug: "samsung-qled-65-q80c", precio: 1299999, precioAnterior: 1599999, descuento: 19, rating: 4 },
+  { id: "p018", nombre: "PlayStation 5 Slim Digital", slug: "playstation-5-slim-digital", precio: 599999, precioAnterior: 699999, descuento: 14, rating: 5 },
+  { id: "p019", nombre: "Xbox Series X 1TB", slug: "xbox-series-x-1tb", precio: 649999, precioAnterior: 749999, descuento: 13, rating: 4 },
+  { id: "p020", nombre: "Silla Gamer Corsair TC100", slug: "silla-gamer-corsair-tc100", precio: 299999, precioAnterior: 379999, descuento: 21, rating: 4 },
+];
+---
+
+<MainLayout title="Ofertas — TechStore">
+  <div class="mx-auto max-w-6xl px-4 py-8">
+    <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Ofertas" }]} class="mb-6" />
+    <div class="mb-8 rounded-xl bg-gradient-to-r from-violet-900 via-violet-800 to-violet-900 p-8 text-center">
+      <p class="mb-2 text-sm font-medium uppercase tracking-wider text-violet-300">Ofertas por tiempo limitado</p>
+      <h1 class="text-3xl font-bold text-white">Aprovechá los mejores descuentos</h1>
+    </div>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {offerProducts.map((p) => <ProductCard key={p.slug} {...p} />)}
+    </div>
+  </div>
+</MainLayout>
