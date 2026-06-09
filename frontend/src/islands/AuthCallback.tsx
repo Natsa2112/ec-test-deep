@@ -19,8 +19,9 @@ export default function AuthCallback() {
         login(token, {
           id: payload.userId,
           email: payload.email,
-          nombre: "",
-          apellido: "",
+          nombre: payload.nombre ?? "",
+          apellido: payload.apellido ?? "",
+          avatarUrl: payload.avatarUrl ?? null,
           rol: payload.rol,
         });
         loadCart().then(() => {

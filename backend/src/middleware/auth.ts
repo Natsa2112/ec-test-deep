@@ -10,6 +10,9 @@ if (!JWT_SECRET) {
 export interface AuthPayload {
   userId: string;
   email: string;
+  nombre: string;
+  apellido: string;
+  avatarUrl: string | null;
   rol: "cliente" | "admin";
 }
 

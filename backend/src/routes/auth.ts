@@ -50,11 +50,14 @@ router.post("/register", async (req, res) => {
     const token = generateToken({
       userId: usuario.id,
       email: usuario.email,
+      nombre: usuario.nombre,
+      apellido: usuario.apellido,
+      avatarUrl: usuario.avatarUrl,
       rol: usuario.rol,
     });
     res.status(201).json({
       token,
-      user: { id: usuario.id, email: usuario.email, nombre: usuario.nombre, apellido: usuario.apellido, rol: usuario.rol },
+      user: { id: usuario.id, email: usuario.email, nombre: usuario.nombre, apellido: usuario.apellido, avatarUrl: usuario.avatarUrl, rol: usuario.rol },
     });
   } catch (err) {
     if (err instanceof z.ZodError) {
@@ -79,6 +82,9 @@ router.post("/login", async (req, res) => {
     const token = generateToken({
       userId: usuario.id,
       email: usuario.email,
+      nombre: usuario.nombre,
+      apellido: usuario.apellido,
+      avatarUrl: usuario.avatarUrl,
       rol: usuario.rol,
     });
     res.json({

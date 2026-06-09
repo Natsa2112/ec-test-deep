@@ -7,8 +7,17 @@ export default function AuthButtons() {
   if (auth.token && auth.user) {
     return (
       <div class="flex items-center gap-3">
-        <a href="/perfil" class="hidden text-sm text-text-secondary hover:text-violet-400 transition-colors md:block">
-          {auth.user.nombre}
+        <a href="/perfil" class="flex items-center gap-2">
+          {auth.user.avatarUrl ? (
+            <img src={auth.user.avatarUrl} alt="" class="h-7 w-7 rounded-full" />
+          ) : (
+            <div class="flex h-7 w-7 items-center justify-center rounded-full bg-violet-600 text-xs font-medium text-white">
+              {auth.user.nombre.charAt(0).toUpperCase()}
+            </div>
+          )}
+          <span class="hidden text-sm text-text-secondary hover:text-violet-400 transition-colors md:block">
+            {auth.user.nombre}
+          </span>
         </a>
         {auth.user.rol === "admin" && (
           <a href="/admin" class="rounded-lg px-3 py-1.5 text-xs font-medium text-violet-400 hover:bg-bg-elevated transition-colors">

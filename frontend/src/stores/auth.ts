@@ -6,6 +6,7 @@ export interface User {
   email: string;
   nombre: string;
   apellido: string;
+  avatarUrl: string | null;
   rol: "cliente" | "admin";
 }
 
